@@ -41,7 +41,7 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     try{
-        const user = await UserModel.findOne({emai: req.body.email})
+        const user = await UserModel.findOne({email: req.body.email})
 
         if(!user){
             return req.status(404).json({
@@ -100,3 +100,32 @@ export const getUser = async (req, res) => {
         })
     }
 };
+
+export const updateUser = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.userId)
+        
+        if (!user) {
+            return res.status(404).json({
+                message: 'Пользователь не найден'
+            })
+        }
+
+        await UserModel.updateOne({
+            _id: user
+        }, {
+
+            shopname: req.body.shopname
+
+        })
+
+        res.json({
+            success: true,
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось обновить профиль'
+        })
+    }
+}

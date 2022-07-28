@@ -39,6 +39,8 @@ app.post('/auth/login', loginValidator, handleValidErrors, UserController.login)
 
 app.get('/auth/me', checkAuth, UserController.getUser)
 
+app.patch('/auth/me', checkAuth, UserController.updateUser)
+
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
         url: `/uploads/${req.file.originalname}`,

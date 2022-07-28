@@ -19,6 +19,13 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     avatarUrl: String,
+    shopname: {
+        type: String,
+        optional: true,
+    },
+    code:{
+        type: String,
+    }
 }, {
     timestamps: true,
 });
