@@ -2,9 +2,9 @@ import CardModel from "../models/card.js"
 
 export const getAll = async (req, res) => {
     try {
-        const cards = await CardModel.find().sort({
+        const cards = await CardModel.find().populate('author').sort({
             createdAt: -1,
-        }).populate('author').exec();
+        }).exec();
         res.json(cards);
     } catch (err) {
         console.log(err);
