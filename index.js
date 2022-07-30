@@ -41,9 +41,9 @@ app.get('/auth/me', checkAuth, UserController.getUser)
 
 app.patch('/auth/me', checkAuth, UserController.updateUser)
 
-app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
+app.post('/upload', checkAuth, upload.single('images'), (req, res) => {
     res.json({
-        url: `/uploads/${req.file.originalname}`,
+        url: `/uploads/${req.file.originalname}`
     })
 })
 

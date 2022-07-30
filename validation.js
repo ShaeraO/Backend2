@@ -21,5 +21,5 @@ export const cardCreateValidation = [
     body('size', 'Укажите размер').isNumeric(),
     body('description', 'Нет описания').isLength({min: 10}).isString(),
     body('tags', 'Неверный формат тэгов').optional().isArray(),
-    body('imgUrl', 'Неверное изображение').isURL(),
+    body('imgUrl', 'Неверное изображение').isString(),
 ];
