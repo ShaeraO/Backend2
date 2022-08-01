@@ -1,4 +1,5 @@
 import CardModel from "../models/card.js"
+import UserSchema from '../models/User.js'
 
 export const getAll = async (req, res) => {
     try {
@@ -15,11 +16,12 @@ export const getAll = async (req, res) => {
 }
 
 export const getOne = async (req, res) => {
+
     try {
+
         const cardId = req.params.id
-        
-        CardModel.findOneAndUpdate(
-        { 
+        const card = await CardModel.findByIdAndUpdate( 
+        {
             _id: cardId,
         },
         {
@@ -27,29 +29,47 @@ export const getOne = async (req, res) => {
         },
         {
             returnDocument: 'after',
-        },
-        (err, doc) => {
-            if (err){
-                console.log(err);
-                return res.status(500).json({
-                    message: 'Не удалось получить статью'
-                })
-            }
-            if (!doc) {
-                return res.status(404).json ({
-                    message: 'Статья не найдена'
-                })
-            }
-
-            res.json(doc);
-        })
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: 'Не удалось получить статьи'
-        })
+        }).populate('author')
+        res.json(card)
+    }   catch (err) {
+        res.json({message:'Что-то пошло не так'})
     }
+    
+    // try {
+    //     const cardId = req.params.id
+        
+    //     CardModel.findByIdAndUpdate().populate('author')(
+    //     { 
+    //         _id: cardId,
+    //     },
+    //     {
+    //         $inc: { viewsCount: 1 },
+    //     },
+    //     {
+    //         returnDocument: 'after',
+    //     },
+    //     (err, doc) => {
+    //         if (err){
+    //             console.log(err);
+    //             return res.status(500).json({
+    //                 message: 'Не удалось получить статью'
+    //             })
+    //         }
+    //         if (!doc) {
+    //             return res.status(404).json ({
+    //                 message: 'Статья не найдена'
+    //             })
+    //         }
+
+    //         res.json(doc);
+    //     })
+
+    // } catch (err) {
+    //     console.log(err);
+    //     res.status(500).json({
+    //         message: 'Не удалось получить статьи'
+    //     })
+    // }
 }
 
 export const remove = async (req, res) => {
@@ -101,6 +121,10 @@ export const create = async (req, res) => {
             author: req.userId,
         })
 
+        await UserSchema.findByIdAndUpdate(req.userId,{
+            $push: {cards: doc},
+        })
+
         const post = await doc.save()
 
         res.json(post);
@@ -138,5 +162,75 @@ export const update = async (req, res) => {
         res.status(500).json({
             message: 'Не удалось обновить товар'
         })
+    }
+}
+
+export const like = async (req, res) => {
+
+    const user = UserSchema.findById(req.userId)
+
+    const card = CardModel.findById(req.params.id)
+
+    try{
+    CardModel.findByIdAndUpdate(
+        {
+            _id: req.params.id,
+        },
+        {
+            $addToSet: {like: req.userId}
+        },
+        {
+            new: true
+        }).exec(
+            (err, result) => {
+                if(err){
+                    return res.status(404).json({error: err})
+                }
+                else{
+                    UserSchema.findByIdAndUpdate(
+                        {
+                            _id: req.userId
+                        },
+                        {
+                            $addToSet: {liked: req.params.id}
+                        },
+                        ).exec()
+                    res.json(result)
+                }
+            }
+        )
+    } catch (err) {
+        return res.json(err)
+
+    }
+
+}
+
+export const getMyCards = async (req, res) => {
+    try {
+        const user = await UserSchema.findById(req.userId)
+        const list = await Promise.all(
+            user.cards.map((card) => {
+                return CardModel.findById(card._id)
+            }),
+            )
+
+        res.json(list)
+    } catch (err) {
+        res.json({message: 'Что-то пошло не так.'})
+    }
+}
+
+export const getMyFavoriteCards = async (req, res) => {
+    try {
+        const user = await UserSchema.findById(req.userId)
+        const list = await Promise.all(
+            user.liked.map((card) => {
+                return CardModel.findById(card._id)
+            }),
+        )
+        res.json(list)
+    } catch (err) {
+        res.json({message: 'Что-то пошло не так.'})
     }
 }

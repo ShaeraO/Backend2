@@ -25,7 +25,15 @@ const UserSchema = new mongoose.Schema({
     },
     code:{
         type: String,
-    }
+    },
+    cards: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Card'
+    }],
+    liked:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Card',
+    }]
 }, {
     timestamps: true,
 });

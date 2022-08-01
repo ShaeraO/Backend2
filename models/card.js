@@ -24,10 +24,6 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: {
-        type: Array,
-        default: []
-    },
     imgUrl: {
         type: String,
     },
@@ -38,7 +34,16 @@ const CardSchema = new mongoose.Schema({
     author:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    }
+    },
+    hashtags:{
+        type: [String],
+        default: []
+    },
+    like:
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        }]
 }, {
     timestamps: true,
 });

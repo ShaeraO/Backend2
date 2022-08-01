@@ -52,6 +52,9 @@ app.get('/market/:id', CardController.getOne)
 app.post('/market', checkAuth, handleValidErrors, cardCreateValidation ,CardController.create)
 app.delete('/market/:id', checkAuth , CardController.remove)
 app.patch('/market/:id', checkAuth , handleValidErrors, CardController.update)
+app.get('/market/user/me', checkAuth, CardController.getMyCards)
+app.patch('/market/:id/like', checkAuth, CardController.like, )
+app.get('/market/user/me/liked', checkAuth, CardController.getMyFavoriteCards)
 
 
 app.listen(4444, (err) =>{

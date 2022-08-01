@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken"
 import bcrypt from 'bcrypt'
 
 import UserModel from "../models/User.js";
+import CardModel from "../models/card.js";
 
 export const register = async (req, res) => {
     try { 
@@ -128,4 +129,13 @@ export const updateUser = async (req, res) => {
             message: 'Не удалось обновить профиль'
         })
     }
+}
+
+export const liked = async (req, res) => {
+    
+    const user = req.userId
+    const cardId = req.params.id 
+
+
+
 }
