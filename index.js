@@ -20,8 +20,8 @@ const storage = multer.diskStorage({
     destination: (req, res, cb) => {
         cb(null, 'uploads')
     },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname)
+    filename: (req, files, cb) => {
+        cb(null, files.originalname)
     },
 })
 
@@ -39,9 +39,28 @@ app.post('/auth/login', loginValidator, handleValidErrors, UserController.login)
 
 app.get('/auth/me', checkAuth, UserController.getUser)
 
+app.get('/users/:id', UserController.getUserById)
+
+app.get('/users', UserController.getAllUsers)
+
 app.patch('/auth/me', checkAuth, UserController.updateUser)
 
-app.post('/upload', checkAuth, upload.single('images'), (req, res) => {
+app.post('/upload', checkAuth, upload.array('images', 6), (req, res) => {
+    res.json({
+        urls : req.files.map(function(file){
+            return `/uploads/${file.originalname}`
+        })
+
+    })
+})
+
+app.post('/upload/banner', checkAuth, upload.single('banner'), (req, res) => {
+    res.json({
+        url: `/uploads/${req.file.originalname}`
+    })
+})
+
+app.post('/upload/avatar', checkAuth, upload.single('avatar'), (req, res) => {
     res.json({
         url: `/uploads/${req.file.originalname}`
     })

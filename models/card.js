@@ -25,7 +25,7 @@ const CardSchema = new mongoose.Schema({
         required: true,
     },
     imgUrl: {
-        type: String,
+        type: Array,
     },
     viewsCount:{
         type: Number,

@@ -11,6 +11,7 @@ export const register = async (req, res) => {
      const hash = await bcrypt.hash(password, salt);
  
      const doc = new UserModel({
+         role: req.body.role,
          username: req.body.username,
          surname: req.body.surname,
          email: req.body.email,
@@ -102,6 +103,43 @@ export const getUser = async (req, res) => {
     }
 };
 
+export const getUserById = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.params.id)
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'Пользователь не найден'
+            })
+        }
+
+        const {passwordHash, ...userData} = user._doc
+    
+
+        res.json(userData)
+        
+    } catch(err){
+        console.log(err);
+        res.status(500).json({
+            message:'Нет доступа'
+        })
+    }
+};
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await UserModel.find().populate('cards').sort({
+            createdAt: -1,
+        }).exec();
+        res.json(users);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось получить пользователей'
+        })
+    }
+}
+
 export const updateUser = async (req, res) => {
     try {
         const user = await UserModel.findById(req.userId)
@@ -115,9 +153,10 @@ export const updateUser = async (req, res) => {
         await UserModel.updateOne({
             _id: user
         }, {
-
-            shopname: req.body.shopname
-
+            shopname: req.body.shopname,
+            bannerUrl: req.body.bannerUrl,
+            avatarUrl: req.body.avatarUrl,
+            status: req.body.status,
         })
 
         res.json({
@@ -129,13 +168,4 @@ export const updateUser = async (req, res) => {
             message: 'Не удалось обновить профиль'
         })
     }
-}
-
-export const liked = async (req, res) => {
-    
-    const user = req.userId
-    const cardId = req.params.id 
-
-
-
 }
