@@ -73,7 +73,7 @@ app.delete('/market/:id', checkAuth , CardController.remove)
 app.patch('/market/:id', checkAuth , handleValidErrors, CardController.update)
 app.get('/market/user/me', checkAuth, CardController.getMyCards)
 app.patch('/market/:id/like', checkAuth, CardController.like, )
-app.put('/market/:id/like/', checkAuth, CardController.likeDelete, )
+app.patch('/market/:id/likeremove', checkAuth, CardController.likeDelete, )
 app.get('/market/user/me/liked', checkAuth, CardController.getMyFavoriteCards)
 
 
