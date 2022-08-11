@@ -207,7 +207,7 @@ export const like = async (req, res) => {
 export const likeDelete = async (req, res) => {
 
     try{
-    CardModel.findByIdAndRemove(
+    CardModel.findByIdAndUpdate(
         {
             _id: req.params.id,
         },
@@ -223,7 +223,7 @@ export const likeDelete = async (req, res) => {
                     return res.status(404).json({error: err})
                 }
                 else{
-                    UserSchema.findByIdAndRemove(
+                    UserSchema.findByIdAndUpdate(
                         {
                             _id: req.userId
                         },
