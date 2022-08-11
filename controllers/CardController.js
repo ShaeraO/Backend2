@@ -167,17 +167,14 @@ export const update = async (req, res) => {
 
 export const like = async (req, res) => {
 
-    const user = UserSchema.findById(req.userId)
-
-    const card = CardModel.findById(req.params.id)
-
     try{
     CardModel.findByIdAndUpdate(
         {
             _id: req.params.id,
         },
         {
-            $addToSet: {like: req.userId}
+            $addToSet: {like: req.userId},
+            $inc: { likeCount: 1 }
         },
         {
             new: true
@@ -205,6 +202,47 @@ export const like = async (req, res) => {
     }
 
 }
+
+
+export const likeDelete = async (req, res) => {
+
+    try{
+    CardModel.findByIdAndRemove(
+        {
+            _id: req.params.id,
+        },
+        {
+            $pull: {like: req.userId},
+            $inc: { likeCount: -1 }
+        },
+        {
+            new: true
+        }).exec(
+            (err, result) => {
+                if(err){
+                    return res.status(404).json({error: err})
+                }
+                else{
+                    UserSchema.findByIdAndRemove(
+                        {
+                            _id: req.userId
+                        },
+                        {
+                            $pull: {liked: req.params.id}
+                        },
+                        ).exec()
+                    res.json(result)
+                }
+            }
+        )
+    } catch (err) {
+        return res.json(err)
+
+    }
+
+}
+
+
 
 export const getMyCards = async (req, res) => {
     try {
