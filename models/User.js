@@ -43,6 +43,11 @@ const UserSchema = new mongoose.Schema({
     },
     status:{
         type: String,
+        default: '',
+    },
+    description:{
+        type: String,
+        default: ''
     }
 }, {
     timestamps: true,

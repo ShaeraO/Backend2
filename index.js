@@ -8,6 +8,10 @@ import * as UserController from './controllers/UserController.js'
 import * as CardController from './controllers/CardController.js'
 import handleValidErrors from "./utils/handleValidErrors.js"
 
+// mongodb+srv://TooBears:H9GJTIsIgKFCfrTp@cluster0.vttvd.mongodb.net/toobears?retryWrites=true&w=majority
+
+//mongodb://TooBearsAdmin:2wi9v2e6U{fL23R3@185.130.114.28/TooBears
+
 
 mongoose.connect(
     'mongodb+srv://TooBears:H9GJTIsIgKFCfrTp@cluster0.vttvd.mongodb.net/toobears?retryWrites=true&w=majority'

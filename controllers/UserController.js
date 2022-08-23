@@ -157,6 +157,7 @@ export const updateUser = async (req, res) => {
             bannerUrl: req.body.bannerUrl,
             avatarUrl: req.body.avatarUrl,
             status: req.body.status,
+            description: req.body.description,
         })
 
         res.json({
