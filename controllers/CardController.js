@@ -119,6 +119,7 @@ export const create = async (req, res) => {
             tags: req.body.tags,
             imgUrl: req.body.imgUrl,
             author: req.userId,
+            currency: req.currency,
         })
 
         await UserSchema.findByIdAndUpdate(req.userId,{

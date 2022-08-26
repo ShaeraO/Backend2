@@ -47,6 +47,9 @@ const CardSchema = new mongoose.Schema({
     likeCount:{
         type: Number,
         default: 0,
+    },
+    currency:{
+        type: String,
     }
 }, {
     timestamps: true,
