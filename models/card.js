@@ -50,7 +50,11 @@ const CardSchema = new mongoose.Schema({
     },
     currency:{
         type: String,
-    }
+    },
+    symbol:{
+        type: String,
+        default: '$',
+    },
 }, {
     timestamps: true,
 });
