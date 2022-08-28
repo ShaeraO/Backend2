@@ -274,3 +274,18 @@ export const getMyFavoriteCards = async (req, res) => {
         res.json({message: 'Что-то пошло не так.'})
     }
 }
+
+export const getUserCards = async (req, res) => {
+    try {
+        const user = await UserSchema.findById(req.params.userId)
+        const list = await Promise.all(
+            user.cards.map((card) => {
+                return CardModel.findById(card._id)
+            }),
+            )
+
+        res.json(list)
+    } catch (err) {
+        res.json({message: 'Что-то пошло не так.'})
+    }
+}

@@ -79,6 +79,7 @@ app.get('/market/user/me', checkAuth, CardController.getMyCards)
 app.patch('/market/:id/like', checkAuth, CardController.like, )
 app.delete('/market/:id/likeremove', checkAuth, CardController.likeDelete, )
 app.get('/market/user/me/liked', checkAuth, CardController.getMyFavoriteCards)
+app.get('/market/:id/cards', CardController.getUserCards)
 
 
 app.listen(4444, (err) =>{
