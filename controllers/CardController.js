@@ -280,7 +280,7 @@ export const getUserCards = async (req, res) => {
         const user = await UserSchema.findById(req.params.id)
         const list = await Promise.all(
             user.cards.map((card) => {
-                return CardModel.findById(card._id)
+                return CardModel.findById(card._id).populate('author')
             }),
             )
 
