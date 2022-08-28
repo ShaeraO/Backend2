@@ -50,6 +50,7 @@ const CardSchema = new mongoose.Schema({
     },
     currency:{
         type: String,
+        default: 'USD'
     },
     symbol:{
         type: String,
