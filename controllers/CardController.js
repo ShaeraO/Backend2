@@ -277,7 +277,7 @@ export const getMyFavoriteCards = async (req, res) => {
 
 export const getUserCards = async (req, res) => {
     try {
-        const user = await UserSchema.findById(req.params.userId)
+        const user = await UserSchema.findById(req.params.id)
         const list = await Promise.all(
             user.cards.map((card) => {
                 return CardModel.findById(card._id)
