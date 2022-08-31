@@ -121,6 +121,8 @@ export const create = async (req, res) => {
             author: req.userId,
             currency: req.body.currency,
             symbol: req.body.symbol,
+            destPrice: req.body.destPrice,
+            destination: req.body.destination
         })
 
         await UserSchema.findByIdAndUpdate(req.userId,{

@@ -56,6 +56,12 @@ const CardSchema = new mongoose.Schema({
         type: String,
         default: '$',
     },
+    destPrice:{
+        type: String,
+    },
+    destination:{
+        type: String,
+    }
 }, {
     timestamps: true,
 });
