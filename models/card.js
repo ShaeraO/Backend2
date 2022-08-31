@@ -57,12 +57,12 @@ const CardSchema = new mongoose.Schema({
         default: '$',
     },
     delivery: [{
-        destPrice:{
+        destPrice:[{
             type: String,
-        },
-        destination:{
+        }],
+        destination:[{
             type: String,
-        }
+       }]
     }]
 }, {
     timestamps: true,
