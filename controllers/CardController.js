@@ -124,7 +124,8 @@ export const create = async (req, res) => {
             delivery: [{
             destPrice: req.body.destPrice,
             destination: req.body.destination
-            }]
+            }],
+            status: req.body.status,
         })
 
         await UserSchema.findByIdAndUpdate(req.userId,{

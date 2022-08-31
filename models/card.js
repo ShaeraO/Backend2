@@ -63,7 +63,10 @@ const CardSchema = new mongoose.Schema({
         destination:[{
             type: String,
        }]
-    }]
+    }],
+    status:{
+        type: String
+    }
 }, {
     timestamps: true,
 });
