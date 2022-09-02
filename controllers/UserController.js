@@ -158,6 +158,8 @@ export const updateUser = async (req, res) => {
             avatarUrl: req.body.avatarUrl,
             status: req.body.status,
             description: req.body.description,
+            username: req.body.username,
+            surname: req.bodt.surname
         })
 
         res.json({
