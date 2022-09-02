@@ -47,7 +47,7 @@ app.get('/users/:id', UserController.getUserById)
 
 app.get('/users', UserController.getAllUsers)
 
-app.patch('/auth/me', UserController.updateUser)
+app.patch('/auth/me', checkAuth, UserController.updateUser)
 
 app.post('/upload', checkAuth, upload.array('images', 6), (req, res) => {
     res.json({
