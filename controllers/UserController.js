@@ -159,7 +159,7 @@ export const updateUser = async (req, res) => {
             status: req.body.status,
             description: req.body.description,
             username: req.body.username,
-            surname: req.bodt.surname
+            surname: req.body.surname
         })
 
         res.json({
@@ -168,7 +168,7 @@ export const updateUser = async (req, res) => {
     } catch (err) {
         console.log(err)
         res.status(500).json({
-            message: 'Не удалось обновить профиль'
+            message: err
         })
     }
 }
