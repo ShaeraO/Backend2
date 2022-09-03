@@ -258,9 +258,7 @@ export const getMyCards = async (req, res) => {
         const list = await Promise.all(
             user.cards.map((card) => {
                 return CardModel.findById(card._id)
-            }).sort({
-                createdAt: -1
-            }),
+            })
             )
 
         res.json(list)
