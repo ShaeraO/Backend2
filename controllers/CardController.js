@@ -261,7 +261,9 @@ export const getMyCards = async (req, res) => {
             })
             )
 
-        res.json(list)
+        res.json(list.sort({
+            createdAt: -1
+        }))
     } catch (err) {
         res.json({message: 'Что-то пошло не так.'})
     }
