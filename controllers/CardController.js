@@ -123,7 +123,8 @@ export const create = async (req, res) => {
             symbol: req.body.symbol,
             delivery: [{
             destPrice: req.body.destPrice,
-            destination: req.body.destination
+            destination: req.body.destination,
+            destCurrency: req.body.destCurrency,
             }],
             status: req.body.status,
         })

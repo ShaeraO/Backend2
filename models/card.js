@@ -62,7 +62,10 @@ const CardSchema = new mongoose.Schema({
         }],
         destination:[{
             type: String,
-       }]
+       }],
+        destCurrency:[{
+            type: String,
+        }],
     }],
     status:{
         type: String
