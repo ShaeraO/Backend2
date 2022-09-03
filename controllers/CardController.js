@@ -260,7 +260,6 @@ export const getMyCards = async (req, res) => {
                 return CardModel.findById(card._id)
             })
             )
-
         res.json(list)
     } catch (err) {
         res.json({message: 'Что-то пошло не так.'})
@@ -285,7 +284,7 @@ export const getUserCards = async (req, res) => {
     try {
         const user = await UserSchema.findById(req.params.id)
         const list = await Promise.all(
-            user.cards.map((card) => {
+            user.cards.sort((a, b) => a.createdAt - b.createdAt).map((card) => {
                 return CardModel.findById(card._id).populate('author')
             }),
             )
