@@ -274,7 +274,9 @@ export const getMyFavoriteCards = async (req, res) => {
         const user = await UserSchema.findById(req.userId)
         const list = await Promise.all(
             user.liked.map((card) => {
-                return CardModel.findById(card._id).populate('author')
+                return CardModel.findById(card._id).populate('author').sort({
+                    createdAt: -1
+                })
             }),
         )
         res.json(list)
