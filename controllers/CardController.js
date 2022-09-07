@@ -199,11 +199,10 @@ export const like = async (req, res) => {
                         {
                             $addToSet: {
                                 liked: req.params.id,
-                                time: Date.now()
                             }
 
                         },
-                        ).exec()
+                        ).exec(),
                     res.json(result)
                 }
             }

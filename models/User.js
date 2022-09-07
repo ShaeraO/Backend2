@@ -33,11 +33,11 @@ const UserSchema = new mongoose.Schema({
     liked:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card',
-        
         time:{
             type: Date,
+            default: Date.now()
         }
-        }],
+    }],
     role:{
         type: String,
         default: 'Seller'

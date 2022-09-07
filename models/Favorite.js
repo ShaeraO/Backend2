@@ -1,17 +1,12 @@
 import mongoose from "mongoose";
 
 const FavoriteSchema = new mongoose.Schema({
-
-    user:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-
-    cards:[{
+    card:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
-    }]
-
+    }
+}, {
+    timestamps: true,
 })
 
 export default mongoose.model('Favorite', FavoriteSchema)
