@@ -194,10 +194,14 @@ export const like = async (req, res) => {
                 else{
                     UserSchema.findByIdAndUpdate(
                         {
-                            _id: req.userId
+                            _id: req.userId,
                         },
                         {
-                            $addToSet: {liked: req.params.id}
+                            $addToSet: {
+                                liked: req.params.id,
+                                time: Date.now()
+                            }
+
                         },
                         ).exec()
                     res.json(result)
