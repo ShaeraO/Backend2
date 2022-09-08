@@ -49,6 +49,8 @@ app.get('/users', UserController.getAllUsers)
 
 app.patch('/auth/me', checkAuth, UserController.updateUser)
 
+app.patch('/users/:id/subscribe', checkAuth, UserController.subscribe)
+
 app.post('/upload', checkAuth, upload.array('images', 6), (req, res) => {
     res.json({
         urls : req.files.map(function(file){
@@ -69,6 +71,8 @@ app.post('/upload/avatar', checkAuth, upload.single('avatar'), (req, res) => {
         url: `/uploads/${req.file.originalname}`
     })
 })
+
+
 
 app.get('/market', CardController.getAll)
 app.get('/market/:id', CardController.getOne)
