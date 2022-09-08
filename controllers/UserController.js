@@ -175,8 +175,6 @@ export const updateUser = async (req, res) => {
 
 export const subscribe = async (req, res) => {
     try{
-
-    }catch(err){
         UserModel.findByIdAndUpdate(
             {
                 _id: req.params.id,
@@ -207,5 +205,7 @@ export const subscribe = async (req, res) => {
                     res.json(result)
                 }
             })
+    }catch(err){
+            return res.json(err)
         }
 }
