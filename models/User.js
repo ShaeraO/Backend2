@@ -33,10 +33,6 @@ const UserSchema = new mongoose.Schema({
     liked:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card',
-        time:{
-            type: Date,
-            default: Date.now()
-        }
     }],
     role:{
         type: String,
@@ -52,7 +48,19 @@ const UserSchema = new mongoose.Schema({
     description:{
         type: String,
         default: ''
-    }
+    },
+    subscribe:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    subsCount: {
+        type: Number,
+        default: 0
+    },
+    subscribed:[{
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    }]
 }, {
     timestamps: true,
 });

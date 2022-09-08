@@ -172,3 +172,40 @@ export const updateUser = async (req, res) => {
         })
     }
 }
+
+export const subscribe = async (req, res) => {
+    try{
+
+    }catch(err){
+        UserModel.findByIdAndUpdate(
+            {
+                _id: req.params.id,
+            },
+            {
+                $addtoset: {subscribed: req.userId},
+                $inc: { subsCount: 1 }
+            },
+            {
+                new: true
+            }).exec((err, result) => {
+                
+                if(err){
+                    return res.status(404).json({error: err})
+                }
+                else{
+                    UserSchema.findByIdAndUpdate(
+                        {
+                            _id: req.userId,
+                        },
+                        {
+                            $addToSet: {
+                                subscribe: req.params.id,
+                            }
+
+                        },
+                        ).exec(),
+                    res.json(result)
+                }
+            })
+        }
+}
