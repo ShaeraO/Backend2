@@ -51,6 +51,7 @@ const UserSchema = new mongoose.Schema({
     },
     subscribe:[{
         type: mongoose.Schema.Types.ObjectId,
+        ref: this
     }],
     subsCount: {
         type: Number,
@@ -58,6 +59,7 @@ const UserSchema = new mongoose.Schema({
     },
     subscribed:[{
         type: mongoose.Schema.ObjectId,
+        ref: this
     }]
 }, {
     timestamps: true,
