@@ -49,7 +49,7 @@ app.get('/users', UserController.getAllUsers)
 
 app.patch('/auth/me', checkAuth, UserController.updateUser)
 
-app.patch('/users/:id/subscribe', checkAuth, UserController.subscribe)
+app.patch('/users/subscribe/:id', checkAuth, UserController.subscribe)
 
 app.post('/upload', checkAuth, upload.array('images', 6), (req, res) => {
     res.json({
