@@ -191,7 +191,7 @@ export const subscribe = async (req, res) => {
                     return res.status(404).json({error: err})
                 }
                 else{
-                    UserSchema.findByIdAndUpdate(
+                    UserModel.findByIdAndUpdate(
                         {
                             _id: req.userId,
                         },
