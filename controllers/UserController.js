@@ -214,7 +214,8 @@ export const getMySubs = async (req, res) => {
         const user = await UserModel.findById(req.userId)
         const list = await Promise.all(
             user.subscribe.map((user) => {
-                return UserModel.findById(user._id)
+                return UserModel.findById(user._id).populate('cards')
+
             }),
         )
         res.json(list)
