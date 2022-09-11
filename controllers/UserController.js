@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken"
 import bcrypt from 'bcrypt'
 
 import UserModel from "../models/User.js";
-import CardModel from "../models/card.js";
 
 export const register = async (req, res) => {
     try { 
@@ -180,7 +179,7 @@ export const subscribe = async (req, res) => {
                 _id: req.params.id,
             },
             {
-                $addtoset: {subscribed: req.userId},
+                $addToSet: {subscribed: req.userId},
                 $inc: { subsCount: 1 }
             },
             {
@@ -188,7 +187,7 @@ export const subscribe = async (req, res) => {
             }).exec((err, result) => {
                 
                 if(err){
-                    return res.status(404).json({error: err})
+                    return res.status(404).json({error: err}) 
                 }
                 else{
                     UserModel.findByIdAndUpdate(
@@ -205,7 +204,21 @@ export const subscribe = async (req, res) => {
                     res.json(result)
                 }
             })
-    }catch(err){
-            return res.json(err)
+        }catch(err){
+            return err
         }
+}
+
+export const getMySubs = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.userId)
+        const list = await Promise.all(
+            user.subscribe.map((user) => {
+                return UserModel.findById(user._id)
+            }),
+        )
+        res.json(list)
+    } catch (err) {
+        res.json(err)
+    }
 }

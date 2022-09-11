@@ -51,6 +51,8 @@ app.patch('/auth/me', checkAuth, UserController.updateUser)
 
 app.patch('/users/subscribe/:id', checkAuth, UserController.subscribe)
 
+app.get('/users/me/subscribed', checkAuth, UserController.getMySubs)
+
 app.post('/upload', checkAuth, upload.array('images', 6), (req, res) => {
     res.json({
         urls : req.files.map(function(file){
