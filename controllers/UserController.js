@@ -200,7 +200,9 @@ export const subscribe = async (req, res) => {
                             }
 
                         },
-                        ).exec(),
+                        {
+                            new: true
+                        }).exec(),
                     res.json(result)
                 }
             })
