@@ -60,7 +60,19 @@ const UserSchema = new mongoose.Schema({
     subscribed:[{
         type: mongoose.Schema.ObjectId,
         ref: this
-    }]
+    }],
+    fbUrl:{
+        type: String
+    },
+    tgUrl:{
+        type: String
+    },
+    instUrl:{
+        type: String
+    },
+    vkUrl:{
+        type: String
+    },
 }, {
     timestamps: true,
 });

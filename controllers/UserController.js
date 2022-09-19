@@ -158,7 +158,11 @@ export const updateUser = async (req, res) => {
             status: req.body.status,
             description: req.body.description,
             username: req.body.username,
-            surname: req.body.surname
+            surname: req.body.surname,
+            fbUrl: req.body.fbUrl,
+            tgUrl: req.body.tgUrl,
+            instUrl: req.body.instUrl,
+            vkUrl: req.body.vkUrl,
         })
 
         res.json({
