@@ -7,6 +7,8 @@ import checkAuth from './utils/checkAuth.js'
 import * as UserController from './controllers/UserController.js'
 import * as CardController from './controllers/CardController.js'
 import handleValidErrors from "./utils/handleValidErrors.js"
+import fs from 'fs'
+import https from 'https'
 
 // mongodb+srv://TooBears:H9GJTIsIgKFCfrTp@cluster0.vttvd.mongodb.net/toobears?retryWrites=true&w=majority
 
@@ -18,7 +20,15 @@ mongoose.connect(
     ).then(() => console.log('DB connected'))
     .catch((err) => console.log('DB error', err))
 
+const privateKey = fs.readFileSync('utils/server.key', 'utf8')
+const cert = fs.readFileSync('utils/server.crt', 'utf8')
+    
+const credentials = {key: privateKey, cert: cert}    
+
 const app = express();
+
+
+const httpsServer = https.createServer(credentials, app)
 
 const storage = multer.diskStorage({
     destination: (req, res, cb) => {
@@ -95,3 +105,10 @@ app.listen(4444, (err) =>{
 
     console.log('Server is running')
 });
+
+httpsServer.listen(64321, (err) => {
+    if(err) {
+        return console.log(err)
+    }
+    console.log('runned 64321')
+})
