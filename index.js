@@ -43,7 +43,11 @@ const upload = multer({ storage })
 
 app.use(express.json())
 
-app.use(cors())
+var corsOptions = {
+    origin: 'https://toobears.com',
+}
+
+app.use(cors(corsOptions))
 
 app.use('/uploads', express.static('uploads'))
 
